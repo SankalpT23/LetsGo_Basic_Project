@@ -1,0 +1,11 @@
+/mvnw text eol=lf
+*.cmd text eol=crlf
+target/
+*.log
+*.class
+*.jar
+*.war
+*.iml
+.idea/
+.vscode/
+src/main/resources/application.properties
