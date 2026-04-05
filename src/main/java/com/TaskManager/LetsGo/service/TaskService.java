@@ -38,7 +38,9 @@ public class TaskService {
         }
         Task task = new Task();
         task.setUser(byEmail);
+        task.setTitle(taskRequest.getTitle());
         task.setDescription(taskRequest.getDescription());
+        task.setPriority(taskRequest.getPriority());
         task.setStatus(taskRequest.getStatus());
         task.setCreatedAt(LocalDateTime.now());
         task.setDueDate(taskRequest.getDueDate());
@@ -47,6 +49,7 @@ public class TaskService {
 
         TaskResponse taskResponse = new TaskResponse();
         taskResponse.setId(save.getId());
+        taskResponse.setTitle(save.getTitle());
         taskResponse.setCreatedAt(save.getCreatedAt());
         taskResponse.setDescription(save.getDescription());
         taskResponse.setPriority(save.getPriority());
@@ -73,6 +76,7 @@ public class TaskService {
 
     public TaskResponse updateTask(TaskRequest taskRequest,Long id) {
         Task updatedTask = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        updatedTask.setTitle(taskRequest.getTitle());
         updatedTask.setDescription(taskRequest.getDescription());
         updatedTask.setDueDate(taskRequest.getDueDate());
         updatedTask.setStatus(taskRequest.getStatus());
@@ -81,6 +85,7 @@ public class TaskService {
         Task save = taskRepository.save(updatedTask);
         return TaskResponse.builder()
                 .id(save.getId())
+                .title(updatedTask.getTitle())
                 .description(updatedTask.getDescription())
                 .priority(updatedTask.getPriority())
                 .dueDate(updatedTask.getDueDate())
